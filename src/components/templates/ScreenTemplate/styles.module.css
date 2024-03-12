@@ -2,12 +2,13 @@
   background: url('https://demos.creative-tim.com/otis-kit-pro/static/media/bg-presentation.889630297390d27e8dfb.jpg')
     center top / cover no-repeat;
   opacity: 1;
-  min-height: 55vh;
+  min-height: 50vh;
   height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .content {
