@@ -12,7 +12,11 @@ import { Footer } from '../../components/organisms/Footer';
 
 export const HomePage = () => {
   return (
-    <ScreenTemplate footer={<Footer />}>
+    <ScreenTemplate
+      description={`Descubre la manera más sencilla y eficiente de reservar tus citas. \n permitiéndote organizar tus compromisos con solo unos clics.`}
+      title={'¡Gestiona tu tiempo \n con elegancia!'}
+      footer={<Footer />}
+    >
       <Box>
         <Box
           display={'flex'}
