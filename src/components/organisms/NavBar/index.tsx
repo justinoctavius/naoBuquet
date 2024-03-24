@@ -25,7 +25,7 @@ export const NavBar = () => {
       boxShadow={1}
       bgcolor={colors.white + 'dd'}
     >
-      <Typography variant="body2" fontWeight={700}>
+      <Typography variant="h6" fontWeight={700}>
         NaoBuquet
       </Typography>
 

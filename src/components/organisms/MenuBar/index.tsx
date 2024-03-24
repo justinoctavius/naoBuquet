@@ -1,8 +1,15 @@
 import { colors } from '../../../constants/theme/colors';
 import { Box, Button } from '@mui/material';
 import LoginIcon from '@mui/icons-material/AccountCircle';
+import { useNavigate } from 'react-router-dom';
 
 export const MenuBar = () => {
+  const navigate = useNavigate();
+
+  const handleReserves = () => {
+    navigate('/mis-reservas');
+  };
+
   return (
     <Box
       bgcolor={colors.gray900}
@@ -16,6 +23,7 @@ export const MenuBar = () => {
           variant="text"
           color="info"
           size="small"
+          onClick={handleReserves}
           sx={{ color: colors.white }}
         >
           Mis reservas
