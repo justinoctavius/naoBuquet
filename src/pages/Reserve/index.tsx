@@ -10,7 +10,6 @@ export const ReservePage = () => {
   const { id } = useParams();
   const { service } = useReserve({ id: id || '' });
 
-  const [emailHelperText, setEmailHelperText] = useState('');
   const [fields, setFields] = useState({
     firstName: '',
     lastName: '',
