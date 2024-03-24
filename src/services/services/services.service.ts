@@ -1,5 +1,11 @@
 import { HttpClient } from '../../utils/httpClient';
-import { Paginate, ReserveScheduleDto, Service } from './types';
+import {
+  CancelScheduleDto,
+  Paginate,
+  Reserve,
+  ReserveScheduleDto,
+  Service,
+} from './types';
 
 export class ServicesService {
   private httpClient: HttpClient;
@@ -22,6 +28,13 @@ export class ServicesService {
     return data;
   }
 
+  async getUserReserves({ skip, take }: Paginate): Promise<Reserve[]> {
+    const { data } = await this.httpClient.client.get<Reserve[]>(
+      `/reserves?skip=${skip}&take=${take}`
+    );
+    return data;
+  }
+
   async reserveSchedule({
     serviceId,
     scheduleId,
@@ -33,7 +46,7 @@ export class ServicesService {
     );
   }
 
-  async cancelSchedule(serviceId: string, scheduleId: string) {
+  async cancelSchedule({ serviceId, scheduleId }: CancelScheduleDto) {
     await this.httpClient.client.post(
       `/services/${serviceId}/schedules/${scheduleId}/cancel`
     );

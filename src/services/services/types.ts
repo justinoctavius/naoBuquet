@@ -33,3 +33,8 @@ export interface ReserveScheduleDto {
   scheduleId: string;
   serviceId: string;
 }
+
+export interface CancelScheduleDto {
+  serviceId: string;
+  scheduleId: string;
+}
