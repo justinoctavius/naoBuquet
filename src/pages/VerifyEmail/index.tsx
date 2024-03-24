@@ -2,19 +2,28 @@ import { FormScreenTemplate } from '../../components/templates/FormScreenTemplat
 import { Box, Typography } from '@mui/material';
 import OtpInput from '../../components/molecules/OtpInput';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useLogin } from '../../hooks/auth/useLogin';
+import { useEffect } from 'react';
 
 export const VerifyEmail = () => {
   const navigate = useNavigate();
 
-  const location = useLocation();
-  const { navigateTo, params } = location.state || {};
+  const { sendOtp, verifyOtp } = useLogin();
 
-  const handleOnOTPChange = (otp: string) => {
+  const location = useLocation();
+  const { navigateTo, params, email } = location.state || {};
+
+  const handleOnOTPChange = async (otp: string) => {
     if (otp.length !== 6) return;
 
-    //TODO: Validar el código de verificación
+    await verifyOtp(email, otp);
     navigate(navigateTo || '/', { state: { params } });
   };
+
+  useEffect(() => {
+    sendOtp(email);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <FormScreenTemplate>

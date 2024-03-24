@@ -6,6 +6,7 @@ import { AuthSingleton } from '../../utils/auth';
 const auth = AuthSingleton.getInstance();
 
 export const useLogin = () => {
+  const [loading, setLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const authService = new AuthService();
@@ -21,11 +22,14 @@ export const useLogin = () => {
 
   const verifyOtp = async (email: string, otp: string) => {
     try {
+      setLoading(true);
       const response = await authService.verifyOtp(email, otp);
       saveToken(response);
     } catch (error) {
       console.error(error);
       throw error;
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -47,5 +51,5 @@ export const useLogin = () => {
     verifyIsAuthenticated();
   }, []);
 
-  return { sendOtp, verifyOtp, logout, isAuthenticated };
+  return { sendOtp, verifyOtp, logout, isAuthenticated, loading };
 };

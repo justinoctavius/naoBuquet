@@ -58,7 +58,9 @@ export const Calendar: React.FC<CalendarProps> = ({
 
   return (
     <Box display={'flex'} flexDirection={'column'} maxWidth={'fit-content'}>
-      <Typography variant="subtitle1">Selecciona una fecha: </Typography>
+      <Typography variant="subtitle1" mb={2}>
+        Selecciona una fecha:{' '}
+      </Typography>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <StaticDatePicker
           displayStaticWrapperAs="desktop"
@@ -70,34 +72,49 @@ export const Calendar: React.FC<CalendarProps> = ({
           renderInput={(params) => params.inputProps}
           shouldDisableDate={isDayFullyBooked}
         />
-        {selectedDate && (
-          <>
-            <Typography variant="subtitle1">Selecciona una hora: </Typography>
-            <Stack
-              gridTemplateColumns={'repeat(2, minmax(100px, 1fr))'}
-              marginTop={2}
-              gap={1}
-              display={'grid'}
-              alignContent={'center'}
-              justifyContent={'center'}
-            >
-              {availableTimes(selectedDate).map(
-                ({ id, from, to, isReserved }) => (
-                  <Button
-                    key={id}
-                    variant={selectedReserve === id ? 'contained' : 'outlined'}
-                    disabled={isReserved}
-                    onClick={() => handleOnSelectTime(id)}
-                  >
-                    {`${dayjs(from).format('HH:mm')} - ${dayjs(to).format(
-                      'HH:mm'
-                    )}`}
-                  </Button>
-                )
-              )}
-            </Stack>
-          </>
-        )}
+        {selectedDate &&
+          (availableTimes(selectedDate).length ? (
+            <>
+              <Typography variant="subtitle1" mt={2}>
+                Selecciona un horario:{' '}
+              </Typography>
+              <Stack
+                gridTemplateColumns={'repeat(2, minmax(100px, 1fr))'}
+                marginTop={2}
+                gap={1}
+                display={'grid'}
+                alignContent={'center'}
+                justifyContent={'center'}
+              >
+                {availableTimes(selectedDate).map(
+                  ({ id, from, to, isReserved }) => (
+                    <Button
+                      key={id}
+                      variant={
+                        selectedReserve === id ? 'contained' : 'outlined'
+                      }
+                      disabled={isReserved}
+                      onClick={() => handleOnSelectTime(id)}
+                    >
+                      {`${dayjs(from).format('HH:mm')} - ${dayjs(to).format(
+                        'HH:mm'
+                      )}`}
+                    </Button>
+                  )
+                )}
+              </Stack>
+            </>
+          ) : (
+            <Box mt={2}>
+              <Typography
+                variant="subtitle2"
+                color={colors.danger}
+                textAlign={'center'}
+              >
+                No hay horarios disponibles para el día seleccionado 😢
+              </Typography>
+            </Box>
+          ))}
       </LocalizationProvider>
     </Box>
   );

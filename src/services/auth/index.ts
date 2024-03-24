@@ -9,12 +9,12 @@ export class AuthService {
   }
 
   async sendOtp(email: string) {
-    await this.httpClient.client.post('/auth/send-otp', { email });
+    await this.httpClient.client.post('/auth/passwordless/send', { email });
   }
 
   async verifyOtp(email: string, otp: string): Promise<VerifyOTPResponse> {
     const { data } = await this.httpClient.client.post<VerifyOTPResponse>(
-      '/auth/verify-otp',
+      '/auth/passwordless/validate',
       {
         email,
         otp,

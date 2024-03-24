@@ -41,6 +41,7 @@ export class ServicesService {
     scheduleId,
     ...rest
   }: ReserveScheduleDto) {
+    console.log({ serviceId, scheduleId, ...rest });
     await this.httpClient.client.post(
       `/services/${serviceId}/schedules/${scheduleId}/reserve`,
       { ...rest }

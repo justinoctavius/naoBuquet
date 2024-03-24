@@ -22,9 +22,8 @@ export const ReservePage = () => {
   const { isAuthenticated } = useLogin();
 
   const location = useLocation();
-  const { service, params } = (location.state || {}) as {
-    service: Service;
-    params?: { fields?: Fields };
+  const { params } = (location.state || {}) as {
+    params?: { fields?: Fields; service: Service };
   };
 
   const { reserveSchedule } = useReserveSchedule();
@@ -50,7 +49,11 @@ export const ReservePage = () => {
 
   const isFormValid = useMemo(
     () =>
-      fields.firstName && fields.lastName && fields.email && fields.reserveId,
+      fields.firstName &&
+      fields.lastName &&
+      fields.email &&
+      fields.reserveId &&
+      fields.email.match(EMAIL_REGEX),
     [fields]
   );
 
@@ -98,7 +101,7 @@ export const ReservePage = () => {
       navigate('/validar-email', {
         state: {
           navigateTo: `/servicios/${id}/reservar`,
-          params: { fields },
+          params: { fields, service: params?.service },
           email: fields.email,
         },
       });
@@ -117,7 +120,7 @@ export const ReservePage = () => {
   return (
     <FormScreenTemplate>
       <Typography variant="h4" mb={2}>
-        {service?.emoji} {capitalize(service?.name)}
+        {params?.service?.emoji || ''} {capitalize(params?.service?.name || '')}
       </Typography>
       <Box display={'flex'} gap={4}>
         <Box>

@@ -12,7 +12,7 @@ export const ServicesPage = () => {
 
   const onServiceClick = (id: string) => {
     navigate(`/servicios/${id}/reservar`, {
-      state: { service: services.find((item) => item.id === id) },
+      state: { params: { service: services.find((item) => item.id === id) } },
     });
   };
 
