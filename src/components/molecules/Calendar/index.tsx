@@ -16,7 +16,7 @@ export const Calendar: React.FC<CalendarProps> = ({
   onSelectReserve,
 }) => {
   const [selectedReserve, setSelectedReserve] = useState<string | null>(null);
-  const [selectedDate, setSelectedDate] = useState<Dayjs | null>(dayjs());
+  const [selectedDate, setSelectedDate] = useState<Dayjs | null>();
 
   // Verificar si todas las reservas para un día específico están llenas
   const isDayFullyBooked = (day: Dayjs): boolean => {
