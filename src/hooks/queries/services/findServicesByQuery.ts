@@ -24,7 +24,9 @@ export const useFindServicesByQuery = (query: string) => {
   };
 
   useEffect(() => {
-    refetch({ query });
+    if (query) {
+      refetch({ query });
+    }
   }, [query]);
 
   return { data, isLoading, error, refetch };
