@@ -6,8 +6,12 @@ const FIND_SERVICES_BY_QUERY_KEY = 'find-services-by-query';
 const servicesService = new ServicesService();
 
 export const useFindServicesByQuery = (query: string) => {
-  const { data, isLoading, error } = useQuery(FIND_SERVICES_BY_QUERY_KEY, () =>
-    servicesService.findServicesByQuery(query)
+  const { data, isLoading, error } = useQuery(
+    FIND_SERVICES_BY_QUERY_KEY,
+    () => servicesService.findServicesByQuery(query),
+    {
+      enabled: !!query,
+    }
   );
 
   return { data, isLoading, error };

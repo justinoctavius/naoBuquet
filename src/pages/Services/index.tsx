@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { FormScreenTemplate } from '../../components/templates/FormScreenTemplate';
 
 export const ServicesPage = () => {
-  const { onSearch, services, name } = useServices();
+  const { onSearch, services, name, error, loading } = useServices();
 
   const navigate = useNavigate();
 
@@ -35,6 +35,9 @@ export const ServicesPage = () => {
         variant="outlined"
         fullWidth
         onChange={onSearch}
+        helperText={
+          loading ? 'Cargando... 🔎' : 'Escribe al menos 3 caracteres'
+        }
         value={name}
       />
       <Box>
@@ -56,6 +59,17 @@ export const ServicesPage = () => {
             </Typography>
           </Box>
         ))}
+        {!!error && !loading && (
+          <Box mt={2} textAlign={'center'}>
+            <Typography
+              textAlign={'center'}
+              variant="caption"
+              color={colors.danger}
+            >
+              Ha ocurrido un error, por favor intenta de nuevo mas tarde 😥
+            </Typography>
+          </Box>
+        )}
       </Box>
     </FormScreenTemplate>
   );

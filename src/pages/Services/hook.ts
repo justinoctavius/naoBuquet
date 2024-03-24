@@ -1,36 +1,30 @@
-import { useRef, useState } from 'react';
-import { services as mockData } from './mockData';
-import { Service } from './types';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useRef, useState } from 'react';
+import { useFindServicesByQuery } from '../../hooks/queries/services/findServicesByQuery';
+import { Service } from '../../services/services/types';
 
 export const useServices = () => {
-  const [loading, setLoading] = useState(false);
+  const [query, setQuery] = useState('');
   const [name, setName] = useState('');
   const [services, setServices] = useState<Service[]>([]);
 
-  const searchDelayRef = useRef<number>();
+  const { data, isLoading, error } = useFindServicesByQuery(query);
+
+  const searchDelayRef = useRef<any>();
 
   const findServiceByName = async (name: string) => {
-    try {
-      const nameFormatted = name.trim().toLowerCase();
+    const nameFormatted = name.trim().toLowerCase();
 
-      if (!nameFormatted) {
-        setServices([]);
-        return;
-      }
-
-      if (nameFormatted.length < 3) {
-        return;
-      }
-
-      setLoading(true);
-      const servicesFiltered = mockData.filter((service) =>
-        service.name.toLowerCase().includes(nameFormatted)
-      );
-
-      setServices(servicesFiltered);
-    } finally {
-      setLoading(false);
+    if (!nameFormatted) {
+      setServices([]);
+      return;
     }
+
+    if (nameFormatted.length < 3) {
+      return;
+    }
+
+    setQuery(nameFormatted);
   };
 
   const onSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,10 +39,17 @@ export const useServices = () => {
     }, 500);
   };
 
+  useEffect(() => {
+    if (data) {
+      setServices(data);
+    }
+  }, [data]);
+
   return {
     onSearch,
-    loading,
+    loading: isLoading,
     services,
+    error,
     name,
   };
 };

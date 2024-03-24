@@ -4,4 +4,5 @@ export const colors = {
   gray700: '#b3b3b3',
   gray900: '#333333',
   blue: 'rgb(26, 115, 232)',
+  danger: '#B52023',
 };
