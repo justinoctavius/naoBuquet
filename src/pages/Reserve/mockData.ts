@@ -42,4 +42,5 @@ export const service: ServiceDetails = {
   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   id: '1',
   name: 'Gimnasio',
+  emoji: '🏋️‍♂️',
 };

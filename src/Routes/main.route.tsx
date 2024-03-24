@@ -1,9 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
 import { HomePage } from '../pages/Home';
-import { LoginPage } from '../pages/Login';
 import { NotFoundPage } from '../pages/NotFound';
 import { ServicesPage } from '../pages/Services';
 import { ReservePage } from '../pages/Reserve';
+import { VerifyEmail } from '../pages/VerifyEmail';
+import { ReserveConfirmed } from '../pages/ReserveConfirmed';
 
 function MainRoute() {
   return (
@@ -12,7 +13,8 @@ function MainRoute() {
         <Route path="/" element={<HomePage />} />
         <Route path="/servicios" element={<ServicesPage />} />
         <Route path="/servicios/:id/reservar" element={<ReservePage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/validar-email" element={<VerifyEmail />} />
+        <Route path="/reserva-confirmada" element={<ReserveConfirmed />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>

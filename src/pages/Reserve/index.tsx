@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FormScreenTemplate } from '../../components/templates/FormScreenTemplate';
 import { useReserve } from './hook';
 import { Calendar } from '../../components/molecules/Calendar';
@@ -10,22 +10,25 @@ export const ReservePage = () => {
   const { id } = useParams();
   const { service } = useReserve({ id: id || '' });
 
+  const navigate = useNavigate();
+
   const [fields, setFields] = useState({
     firstName: '',
     lastName: '',
     email: '',
+    reserveId: '',
   });
   const [helperText, setHelperText] = useState({
     firstName: '',
     lastName: '',
     email: '',
+    reserveId: '',
   });
 
-  const [reserveId, setReserveId] = useState<string | null>('');
-
   const isFormValid = useMemo(
-    () => fields.firstName && fields.lastName && fields.email && reserveId,
-    [fields, reserveId]
+    () =>
+      fields.firstName && fields.lastName && fields.email && fields.reserveId,
+    [fields]
   );
 
   const validateEmail = () => {
@@ -48,18 +51,27 @@ export const ReservePage = () => {
     }
   };
 
-  const handleOnFieldChange = (field: string, value: string) => {
+  const handleOnFieldChange = (field: string, value: string | null) => {
     setFields({ ...fields, [field]: value });
     setHelperText({ ...helperText, [field]: '' });
   };
 
+  const handleOnReserve = () => {
+    navigate('/validar-email', {
+      state: { navigateTo: '/reserva-confirmada', fields, email: fields.email },
+    });
+  };
+
   return (
     <FormScreenTemplate>
+      <Typography variant="h4" mb={2}>
+        {service?.emoji} {service?.name}
+      </Typography>
       <Box display={'flex'} gap={4}>
         <Box>
           <Calendar
             schedule={service?.schedules || []}
-            onSelectReserve={(id) => setReserveId(id)}
+            onSelectReserve={(id) => handleOnFieldChange('reserveId', id)}
           />
         </Box>
         <Box
@@ -117,7 +129,12 @@ export const ReservePage = () => {
               onBlur={() => validateFields('email')}
             />
           </Box>
-          <Button variant="contained" fullWidth disabled={!isFormValid}>
+          <Button
+            variant="contained"
+            fullWidth
+            disabled={!isFormValid}
+            onClick={handleOnReserve}
+          >
             Reservar
           </Button>
         </Box>

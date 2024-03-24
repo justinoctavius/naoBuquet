@@ -10,4 +10,5 @@ export interface ServiceDetails {
   name: string;
   description: string;
   schedules: Schedule[];
+  emoji?: string;
 }

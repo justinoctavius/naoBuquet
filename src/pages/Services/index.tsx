@@ -16,6 +16,9 @@ export const ServicesPage = () => {
 
   return (
     <FormScreenTemplate>
+      <Typography variant="h1" fontWeight={'bold'} textAlign="center">
+        📅
+      </Typography>
       <Typography
         variant="h6"
         color={colors.gray900}
@@ -46,7 +49,7 @@ export const ServicesPage = () => {
             onClick={() => onServiceClick(item.id)}
           >
             <Typography variant="subtitle1" fontWeight={700}>
-              {item.name}
+              {item?.emoji} {item.name}
             </Typography>
             <Typography variant="caption" color={colors.gray900}>
               {item.description}
