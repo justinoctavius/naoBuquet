@@ -46,9 +46,9 @@ export class ServicesService {
     );
   }
 
-  async cancelSchedule({ serviceId, scheduleId }: CancelScheduleDto) {
+  async cancelReserve({ serviceId, reserveId }: CancelScheduleDto) {
     await this.httpClient.client.post(
-      `/services/${serviceId}/schedules/${scheduleId}/cancel`
+      `/services/${serviceId}/reserve/${reserveId}/cancel`
     );
   }
 

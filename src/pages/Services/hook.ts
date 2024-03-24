@@ -8,7 +8,7 @@ export const useServices = () => {
   const [name, setName] = useState('');
   const [services, setServices] = useState<Service[]>([]);
 
-  const { data, isLoading, error } = useFindServicesByQuery(query);
+  const { data, isLoading, error, refetch } = useFindServicesByQuery(query);
 
   const searchDelayRef = useRef<any>();
 
@@ -25,6 +25,8 @@ export const useServices = () => {
     }
 
     setQuery(nameFormatted);
+
+    await refetch({ query: nameFormatted });
   };
 
   const onSearch = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -9,7 +9,7 @@ const servicesService = new ServicesService();
 
 export const useCancelSchedule = (cancelScheduleDto: CancelScheduleDto) => {
   const cancelSchedule = useMutation(
-    () => servicesService.cancelSchedule(cancelScheduleDto),
+    () => servicesService.cancelReserve(cancelScheduleDto),
     {
       onSuccess: () => {
         queryClient.invalidateQueries([

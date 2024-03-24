@@ -36,5 +36,5 @@ export interface ReserveScheduleDto {
 
 export interface CancelScheduleDto {
   serviceId: string;
-  scheduleId: string;
+  reserveId: string;
 }
