@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { AuthService } from '../../services/auth';
 import { VerifyOTPResponse } from '../../services/auth/types';
-import { AuthSingleton } from '../../utils/auth';
+import { AuthSingleton, User } from '../../utils/auth';
 
 const auth = AuthSingleton.getInstance();
 
 export const useLogin = () => {
   const [loading, setLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
 
   const authService = new AuthService();
 
@@ -45,11 +46,12 @@ export const useLogin = () => {
 
   const verifyIsAuthenticated = () => {
     setIsAuthenticated(!!auth.getToken());
+    setUser(auth.getUser());
   };
 
   useEffect(() => {
     verifyIsAuthenticated();
   }, []);
 
-  return { sendOtp, verifyOtp, logout, isAuthenticated, loading };
+  return { sendOtp, verifyOtp, logout, user, isAuthenticated, loading };
 };
