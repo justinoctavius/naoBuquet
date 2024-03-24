@@ -50,6 +50,12 @@ export const Calendar: React.FC<CalendarProps> = ({
     onSelectReserve(selectedReserve);
   }, [selectedReserve]);
 
+  useEffect(() => {
+    if (selectedDate) {
+      setSelectedReserve(null);
+    }
+  }, [selectedDate]);
+
   return (
     <Box display={'flex'} flexDirection={'column'} maxWidth={'fit-content'}>
       <Typography variant="subtitle1">Selecciona una fecha: </Typography>

@@ -3,12 +3,21 @@ import { FormScreenTemplate } from '../../components/templates/FormScreenTemplat
 import { useReserve } from './hook';
 import { Calendar } from '../../components/molecules/Calendar';
 import { Box, Button, TextField, Typography } from '@mui/material';
+import { useMemo, useState } from 'react';
 
 export const ReservePage = () => {
   const { id } = useParams();
   const { service } = useReserve({ id: id || '' });
 
-  console.log('service', service);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [reserveId, setReserveId] = useState<string | null>('');
+
+  const isFormValid = useMemo(
+    () => firstName && lastName && email && reserveId,
+    [firstName, lastName, email, reserveId]
+  );
 
   return (
     <FormScreenTemplate>
@@ -16,7 +25,7 @@ export const ReservePage = () => {
         <Box>
           <Calendar
             schedule={service?.schedules || []}
-            onSelectReserve={(id) => console.log(id)}
+            onSelectReserve={(id) => setReserveId(id)}
           />
         </Box>
         <Box
@@ -35,8 +44,8 @@ export const ReservePage = () => {
                 type="email"
                 variant="outlined"
                 fullWidth
-                onChange={() => {}}
-                value={name}
+                onChange={(e) => setFirstName(e.target.value)}
+                value={firstName}
               />
               <TextField
                 id="filled-lastname"
@@ -44,8 +53,8 @@ export const ReservePage = () => {
                 type="email"
                 variant="outlined"
                 fullWidth
-                onChange={() => {}}
-                value={name}
+                onChange={(e) => setLastName(e.target.value)}
+                value={lastName}
               />
             </Box>
             <TextField
@@ -54,11 +63,11 @@ export const ReservePage = () => {
               type="email"
               variant="outlined"
               fullWidth
-              onChange={() => {}}
-              value={name}
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
             />
           </Box>
-          <Button variant="contained" fullWidth>
+          <Button variant="contained" fullWidth disabled={!isFormValid}>
             Reservar
           </Button>
         </Box>
