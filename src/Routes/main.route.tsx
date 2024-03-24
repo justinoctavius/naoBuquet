@@ -6,17 +6,21 @@ import { ReservePage } from '../pages/Reserve';
 import { VerifyEmail } from '../pages/VerifyEmail';
 import { ReserveConfirmed } from '../pages/ReserveConfirmed';
 import { MyReserves } from '../pages/MyReserves';
+import PrivateRoute from './private.route';
+import { routes } from '../constants/routes';
 
 function MainRoute() {
   return (
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/servicios" element={<ServicesPage />} />
+        <Route path={routes.services} element={<ServicesPage />} />
         <Route path="/servicios/:id/reservar" element={<ReservePage />} />
-        <Route path="/validar-email" element={<VerifyEmail />} />
-        <Route path="/reserva-confirmada" element={<ReserveConfirmed />} />
-        <Route path="/mis-reservas" element={<MyReserves />} />
+        <Route path={routes.verifyEmail} element={<VerifyEmail />} />
+        <Route path={routes.reserveConfirmed} element={<ReserveConfirmed />} />
+        <Route path={`${routes.dashboard}/*`} element={<PrivateRoute />}>
+          <Route path="" element={<MyReserves />} />
+        </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>

@@ -4,11 +4,12 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { NavLink, useLocation } from 'react-router-dom';
 import { colors } from '../../../constants/theme/colors';
+import { routes } from '../../../constants/routes';
 
 const options = [
   {
     label: 'Mis reservas',
-    path: '/mis-reservas',
+    path: routes.myReserves,
     icon: <InboxIcon />,
   },
   {

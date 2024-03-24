@@ -2,12 +2,13 @@ import { colors } from '../../../constants/theme/colors';
 import { Box, Button } from '@mui/material';
 import LoginIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
+import { routes } from '../../../constants/routes';
 
 export const MenuBar = () => {
   const navigate = useNavigate();
 
   const handleReserves = () => {
-    navigate('/mis-reservas');
+    navigate(routes.myReserves);
   };
 
   return (

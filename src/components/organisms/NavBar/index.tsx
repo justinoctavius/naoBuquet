@@ -2,12 +2,13 @@ import { Box, Button, Typography } from '@mui/material';
 import { colors } from '../../../constants/theme/colors';
 import styles from './styles.module.css';
 import { useNavigate } from 'react-router-dom';
+import { routes } from '../../../constants/routes';
 
 export const NavBar = () => {
   const navigate = useNavigate();
 
   const onReserveClick = () => {
-    navigate('/servicios');
+    navigate(routes.services);
   };
 
   return (

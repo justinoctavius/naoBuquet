@@ -1,29 +1,44 @@
 import { FormScreenTemplate } from '../../components/templates/FormScreenTemplate';
-import { Box, Typography } from '@mui/material';
-import OtpInput from '../../components/molecules/OtpInput';
+import { Box } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useLogin } from '../../hooks/auth/useLogin';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { EmailSended } from './EmailSended';
+import { EnterEmail } from './EnterEmail';
+import { useAuth } from '../../context/auth';
 
 export const VerifyEmail = () => {
+  const [email, setEmail] = useState('');
+  const [helperText, setHelperText] = useState('');
   const navigate = useNavigate();
 
-  const { sendOtp, verifyOtp } = useLogin();
+  const { sendOtp, verifyOtp } = useAuth();
 
   const location = useLocation();
-  const { navigateTo, params, email } = location.state || {};
+  const { navigateTo, params, email: paramsEmail } = location.state || {};
 
   const handleOnOTPChange = async (otp: string) => {
-    if (otp.length !== 6) return;
+    try {
+      setHelperText('');
+      if (otp.length !== 6) return;
 
-    await verifyOtp(email, otp);
-    navigate(navigateTo || '/', { state: { params } });
+      await verifyOtp(email, otp);
+      navigate(navigateTo || '/', { state: { params } });
+    } catch (error) {
+      console.error(error);
+      setHelperText('Código incorrecto o expirado');
+    }
   };
 
   useEffect(() => {
-    sendOtp(email);
+    if (paramsEmail) setEmail(paramsEmail);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [paramsEmail]);
+
+  useEffect(() => {
+    if (email) {
+      sendOtp(email);
+    }
+  }, [email]);
 
   return (
     <FormScreenTemplate>
@@ -33,16 +48,17 @@ export const VerifyEmail = () => {
         gap={2}
         alignItems={'center'}
       >
-        <Typography variant="h1" fontWeight={'bold'}>
-          📧
-        </Typography>
-        <Typography variant="subtitle1" fontWeight={'bold'}>
-          Se ha enviado un código de verificación a tu correo
-        </Typography>
-        <Typography variant="subtitle2">
-          Por favor, ingresa el código para continuar
-        </Typography>
-        <OtpInput onOtpChange={handleOnOTPChange} />
+        {email ? (
+          <EmailSended
+            email={email}
+            onEditPress={() => setEmail('')}
+            resendOTP={() => sendOtp(email)}
+            onOtpChange={handleOnOTPChange}
+            helperText={helperText}
+          />
+        ) : (
+          <EnterEmail onEmailChange={setEmail} />
+        )}
       </Box>
     </FormScreenTemplate>
   );

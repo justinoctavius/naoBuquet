@@ -9,6 +9,7 @@ import { useFindSchedulesByServiceId } from '../../hooks/queries/services/findSc
 import { useLogin } from '../../hooks/auth/useLogin';
 import { useReserveSchedule } from '../../hooks/mutations/services/useReserveSchedule';
 import { colors } from '../../constants/theme/colors';
+import { routes } from '../../constants/routes';
 
 interface Fields {
   firstName: string;
@@ -99,7 +100,7 @@ export const ReservePage = () => {
 
   const handleOnReserve = () => {
     if (!isAuthenticated) {
-      navigate('/validar-email', {
+      navigate(routes.verifyEmail, {
         state: {
           navigateTo: `/servicios/${id}/reservar`,
           params: { fields, service: params?.service },

@@ -1,12 +1,13 @@
 import { FormScreenTemplate } from '../../components/templates/FormScreenTemplate';
 import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { routes } from '../../constants/routes';
 
 export const ReserveConfirmed = () => {
   const navigate = useNavigate();
 
   const handleOnContinue = () => {
-    navigate('/mis-reservas');
+    navigate(routes.myReserves);
   };
 
   return (
