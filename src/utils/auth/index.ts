@@ -40,6 +40,7 @@ export class AuthSingleton {
   removeToken() {
     this.token = '';
     this.expiresAt = 0;
+    this.user = null;
     sessionStorage.removeItem(TOKEN_KEY);
     sessionStorage.removeItem(EXPIRES_AT_KEY);
   }

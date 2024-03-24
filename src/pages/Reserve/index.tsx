@@ -1,15 +1,22 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { FormScreenTemplate } from '../../components/templates/FormScreenTemplate';
 import { Calendar } from '../../components/molecules/Calendar';
-import { Box, Button, TextField, Typography, capitalize } from '@mui/material';
+import {
+  Box,
+  Button,
+  Link,
+  TextField,
+  Typography,
+  capitalize,
+} from '@mui/material';
 import { useEffect, useMemo, useState } from 'react';
 import { EMAIL_REGEX } from '../../constants/regex';
 import { Service } from '../Services/types';
 import { useFindSchedulesByServiceId } from '../../hooks/queries/services/findSchedulesByServiceId';
-import { useLogin } from '../../hooks/auth/useLogin';
 import { useReserveSchedule } from '../../hooks/mutations/services/useReserveSchedule';
 import { colors } from '../../constants/theme/colors';
 import { routes } from '../../constants/routes';
+import { useAuth } from '../../context/auth';
 
 interface Fields {
   firstName: string;
@@ -21,7 +28,7 @@ interface Fields {
 export const ReservePage = () => {
   const { id } = useParams();
 
-  const { isAuthenticated } = useLogin();
+  const { isAuthenticated, user, logout } = useAuth();
 
   const location = useLocation();
   const { params } = (location.state || {}) as {
@@ -39,7 +46,7 @@ export const ReservePage = () => {
   const [fields, setFields] = useState<Fields>({
     firstName: params?.fields?.firstName || '',
     lastName: params?.fields?.lastName || '',
-    email: params?.fields?.email || '',
+    email: user?.email || params?.fields?.email || '',
     reserveId: params?.fields?.reserveId || '',
   });
   const [helperText, setHelperText] = useState<Fields>({
@@ -190,19 +197,32 @@ export const ReservePage = () => {
                 required
               />
             </Box>
-            <TextField
-              id="filled-email"
-              label="Correo electronico"
-              type="email"
-              variant="outlined"
-              fullWidth
-              onChange={(e) => handleOnFieldChange('email', e.target.value)}
-              value={fields.email}
-              required
-              helperText={helperText.email}
-              error={!!helperText.email}
-              onBlur={() => validateFields('email')}
-            />
+            <Box>
+              <TextField
+                id="filled-email"
+                label="Correo electronico"
+                type="email"
+                variant="outlined"
+                fullWidth
+                onChange={(e) => handleOnFieldChange('email', e.target.value)}
+                value={fields.email}
+                required
+                helperText={helperText.email}
+                disabled={isAuthenticated}
+                error={!!helperText.email}
+                onBlur={() => validateFields('email')}
+              />
+              {isAuthenticated && (
+                <Link
+                  variant="caption"
+                  onClick={logout}
+                  width="fit-content"
+                  sx={{ cursor: 'pointer' }}
+                >
+                  Ingresar otro correo
+                </Link>
+              )}
+            </Box>
           </Box>
           <Button
             variant="contained"
