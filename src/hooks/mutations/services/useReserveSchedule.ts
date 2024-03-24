@@ -7,18 +7,19 @@ import { GET_USER_RESERVES_QUERY_KEY } from '../../queries/services/useGetUserRe
 
 const servicesService = new ServicesService();
 
-export const useReserveSchedule = (reserveScheduleDto: ReserveScheduleDto) => {
-  const reserveSchedule = useMutation(
-    () => servicesService.reserveSchedule(reserveScheduleDto),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries([
-          SERVICES_DETAILS_QUERY_KEY,
-          GET_USER_RESERVES_QUERY_KEY,
-        ]);
-      },
-    }
-  );
+export const useReserveSchedule = () => {
+  const { mutateAsync } = useMutation(servicesService.reserveSchedule, {
+    onSuccess: () => {
+      queryClient.invalidateQueries([
+        SERVICES_DETAILS_QUERY_KEY,
+        GET_USER_RESERVES_QUERY_KEY,
+      ]);
+    },
+  });
+
+  const reserveSchedule = async (reserveScheduleDto: ReserveScheduleDto) => {
+    await mutateAsync(reserveScheduleDto);
+  };
 
   return {
     reserveSchedule,

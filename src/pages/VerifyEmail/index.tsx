@@ -7,13 +7,13 @@ export const VerifyEmail = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
-  const { navigateTo } = location.state || {};
+  const { navigateTo, params } = location.state || {};
 
   const handleOnOTPChange = (otp: string) => {
     if (otp.length !== 6) return;
 
     //TODO: Validar el código de verificación
-    navigate(navigateTo || '/');
+    navigate(navigateTo || '/', { state: { params } });
   };
 
   return (

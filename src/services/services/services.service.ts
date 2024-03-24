@@ -4,6 +4,7 @@ import {
   Paginate,
   Reserve,
   ReserveScheduleDto,
+  Schedule,
   Service,
 } from './types';
 
@@ -50,6 +51,13 @@ export class ServicesService {
     await this.httpClient.client.post(
       `/services/${serviceId}/reserve/${reserveId}/cancel`
     );
+  }
+
+  async findScheduleByServiceId(serviceId: string): Promise<Schedule[]> {
+    const { data } = await this.httpClient.client.get<Schedule[]>(
+      `/services/${serviceId}/schedules`
+    );
+    return data;
   }
 
   async findServicesByQuery(query: string): Promise<Service[]> {

@@ -1,15 +1,11 @@
 import { FormScreenTemplate } from '../../components/templates/FormScreenTemplate';
 import { Box, Button, Typography } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const ReserveConfirmed = () => {
   const navigate = useNavigate();
 
-  // const location = useLocation();
-  // const { fields } = location.state || {};
-
   const handleOnContinue = () => {
-    //TODO: Validar el código de verificación
     navigate('/mis-reservas');
   };
 
