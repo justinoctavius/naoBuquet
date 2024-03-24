@@ -3,6 +3,6 @@ export const colors = {
   gray: '#e5e5e5',
   gray700: '#b3b3b3',
   gray900: '#333333',
-  blue: 'rgb(26, 115, 232)',
-  danger: '#B52023',
+  blue: '#007BFF',
+  danger: '#DC3545',
 };

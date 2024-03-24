@@ -8,6 +8,7 @@ import { Service } from '../Services/types';
 import { useFindSchedulesByServiceId } from '../../hooks/queries/services/findSchedulesByServiceId';
 import { useLogin } from '../../hooks/auth/useLogin';
 import { useReserveSchedule } from '../../hooks/mutations/services/useReserveSchedule';
+import { colors } from '../../constants/theme/colors';
 
 interface Fields {
   firstName: string;
@@ -119,9 +120,27 @@ export const ReservePage = () => {
 
   return (
     <FormScreenTemplate>
-      <Typography variant="h4" mb={2}>
-        {params?.service?.emoji || ''} {capitalize(params?.service?.name || '')}
-      </Typography>
+      <Box display={'flex'} mb={2} alignItems={'center'} gap={2}>
+        <Typography variant="h4">
+          {params?.service?.emoji || ''}{' '}
+          {capitalize(params?.service?.name || '')}
+        </Typography>
+        {data?.length === 0 && (
+          <Box
+            display={'flex'}
+            alignItems={'center'}
+            padding={2}
+            pt={1}
+            pb={1}
+            borderRadius={4}
+            bgcolor={colors.danger}
+          >
+            <Typography color={colors.white} variant="body2">
+              No hay horarios disponibles
+            </Typography>
+          </Box>
+        )}
+      </Box>
       <Box display={'flex'} gap={4}>
         <Box>
           <Calendar
