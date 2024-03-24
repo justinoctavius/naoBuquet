@@ -1,15 +1,7 @@
 import React, { ReactNode } from 'react';
-import {
-  CssBaseline,
-  Box,
-  Toolbar,
-  AppBar,
-  Drawer,
-  Typography,
-} from '@mui/material';
-// import Header from './Header';
+import { CssBaseline, Box, Toolbar, Drawer } from '@mui/material';
 import SideNavigator from '../../organisms/SideNavigator';
-import { Link } from 'react-router-dom';
+import { Header } from '../../molecules/Header';
 
 interface LayoutProps {
   children: ReactNode;
@@ -21,18 +13,7 @@ const DashboardScreenTemplate: React.FC<LayoutProps> = ({ children }) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      >
-        <Toolbar>
-          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <Typography variant="h6" fontWeight={'bold'}>
-              NaoBuquet
-            </Typography>
-          </Link>
-        </Toolbar>
-      </AppBar>
+      <Header />
       <Drawer
         variant="permanent"
         sx={{
@@ -51,7 +32,7 @@ const DashboardScreenTemplate: React.FC<LayoutProps> = ({ children }) => {
       </Drawer>
       <Box
         component="main"
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 2, pt: 4 }}
       >
         <Toolbar />{' '}
         {/* Añade espacio para el contenido debajo del encabezado */}

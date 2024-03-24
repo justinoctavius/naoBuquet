@@ -31,7 +31,7 @@ export class ServicesService {
 
   async getUserReserves({ skip, take }: Paginate): Promise<Reserve[]> {
     const { data } = await this.httpClient.client.get<Reserve[]>(
-      `/reserves?skip=${skip}&take=${take}`
+      `/services/reserves?skip=${skip}&take=${take}`
     );
     return data;
   }

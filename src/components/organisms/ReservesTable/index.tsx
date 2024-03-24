@@ -10,12 +10,12 @@ import {
   IconButton,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Reserve } from '../../../pages/Reserve/types';
 import moment from 'moment';
+import { Reserve } from '../../../services/services/types';
 
 interface DataTableProps {
   reserves: Reserve[];
-  onDelete: (id: string) => void;
+  onDelete: (reserve: Reserve) => void;
 }
 
 const DataTable: React.FC<DataTableProps> = ({ reserves, onDelete }) => {
@@ -26,27 +26,35 @@ const DataTable: React.FC<DataTableProps> = ({ reserves, onDelete }) => {
           <TableRow>
             <TableCell></TableCell>
             <TableCell>Servicio</TableCell>
+            <TableCell>Nombre</TableCell>
+            <TableCell>Apellido</TableCell>
             <TableCell>Desde</TableCell>
             <TableCell>Hasta</TableCell>
             <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {reserves.map(({ service: { name, emoji }, from, id, to }, index) => (
+          {reserves.map((reserve, index) => (
             <TableRow
               key={index}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {index}
+                {index + 1}
               </TableCell>
               <TableCell>
-                {emoji} {name}
+                {reserve.service.emoji} {reserve.service.name}
               </TableCell>
-              <TableCell>{moment(from).format('DD/MM/YYYY HH:mm')}</TableCell>
-              <TableCell>{moment(to).format('DD/MM/YYYY HH:mm')}</TableCell>
+              <TableCell>{reserve.firstName}</TableCell>
+              <TableCell>{reserve.lastName}</TableCell>
               <TableCell>
-                <IconButton onClick={() => onDelete(id)}>
+                {moment(reserve.schedule.from).format('DD/MM/YYYY HH:mm')}
+              </TableCell>
+              <TableCell>
+                {moment(reserve.schedule.to).format('DD/MM/YYYY HH:mm')}
+              </TableCell>
+              <TableCell>
+                <IconButton onClick={() => onDelete(reserve)}>
                   <DeleteIcon />
                 </IconButton>
               </TableCell>

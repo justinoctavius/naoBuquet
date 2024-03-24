@@ -19,11 +19,12 @@ export interface Paginate {
 }
 
 export interface Reserve {
+  id: string;
   firstName: string;
   lastName: string;
   email: string;
   service: Pick<Service, 'id' | 'name' | 'emoji' | 'description'>;
-  schedule: Pick<Schedule, 'id' | 'from' | 'to'>;
+  schedule: Pick<Schedule, 'id' | 'from' | 'to' | 'isReserved'>;
 }
 
 export interface ReserveScheduleDto {

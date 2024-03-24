@@ -1,5 +1,6 @@
 import { Box, Container } from '@mui/material';
 import { colors } from '../../../constants/theme/colors';
+import { Header } from '../../molecules/Header';
 
 export const FormScreenTemplate = ({
   children,
@@ -7,21 +8,31 @@ export const FormScreenTemplate = ({
   children: React.ReactNode;
 }) => {
   return (
-    <Box sx={{ backgroundColor: colors.gray }}>
-      <Container>
-        <Box p={2} height={'100vh'} display={'flex'} justifyContent={'center'}>
+    <>
+      <Box sx={{ height: '64px' }}>
+        <Header />
+      </Box>
+      <Box sx={{ backgroundColor: colors.gray, pt: 2 }}>
+        <Container>
           <Box
-            bgcolor={colors.white + 'aa'}
-            p={4}
-            minWidth={'50%'}
-            width="fit-content"
-            borderRadius={3}
-            boxShadow={2}
+            p={2}
+            height={'100vh'}
+            display={'flex'}
+            justifyContent={'center'}
           >
-            {children}
+            <Box
+              bgcolor={colors.white + 'aa'}
+              p={4}
+              minWidth={'50%'}
+              width="fit-content"
+              borderRadius={3}
+              boxShadow={2}
+            >
+              {children}
+            </Box>
           </Box>
-        </Box>
-      </Container>
-    </Box>
+        </Container>
+      </Box>
+    </>
   );
 };
