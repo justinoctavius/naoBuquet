@@ -1,11 +1,21 @@
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { Props } from './types';
 import styles from './styles.module.css';
 import { colors } from '../../../constants/theme/colors';
+import { NavBar } from '../../organisms/NavBar';
 
-export const ScreenTemplate = ({ children, footer }: Props) => {
+export const ScreenTemplate = ({
+  children,
+  footer,
+  title,
+  description,
+}: Props) => {
   return (
     <Box bgcolor={'#eee'}>
+      <Box className={styles['background']} />
+      <Box className={styles['navbar']}>
+        <NavBar />
+      </Box>
       <Box className={styles['header']}>
         <Box
           position={'relative'}
@@ -15,37 +25,12 @@ export const ScreenTemplate = ({ children, footer }: Props) => {
           display={'flex'}
           flexDirection={'column'}
         >
-          <Box
-            display={'flex'}
-            position={'fixed'}
-            zIndex={1}
-            top={16}
-            p={2}
-            width={'80%'}
-            maxWidth={750}
-            className={styles['navbar']}
-            borderRadius={3}
-            justifyContent={'space-between'}
-            alignItems={'center'}
-            boxShadow={1}
-            bgcolor={colors.white + 'dd'}
-          >
-            <Typography variant="body2" fontWeight={700}>
-              NaoBuquet
-            </Typography>
-
-            <Button variant="contained" color="primary" size="small">
-              ¡Reserva ahora!
-            </Button>
-          </Box>
           <Box textAlign={'center'} p={4}>
             <Typography variant="h4" fontWeight={600} color={colors.white}>
-              ¡Gestiona tu tiempo <br /> con elegancia!
+              {title}
             </Typography>
             <Typography mt={2} variant="body2" color={colors.gray}>
-              Descubre la manera más sencilla y eficiente de reservar tus citas.
-              <br />
-              permitiéndote organizar tus compromisos con solo unos clics.
+              {description}
             </Typography>
           </Box>
         </Box>
