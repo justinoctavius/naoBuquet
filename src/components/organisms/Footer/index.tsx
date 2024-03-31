@@ -1,5 +1,6 @@
 import { Box, Container, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { routes } from '../../../constants/routes';
 
 export const Footer = () => {
   return (
@@ -27,7 +28,7 @@ export const Footer = () => {
             </Typography>
             <Box display="flex">
               <Typography variant="caption" textAlign={'center'}>
-                <Link to="/about">Acerca de NaoBuquet</Link>
+                <Link to={routes.about}>Acerca de NaoBuquet</Link>
               </Typography>
             </Box>
           </Box>
