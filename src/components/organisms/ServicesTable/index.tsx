@@ -11,31 +11,27 @@ import {
   capitalize,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import moment from 'moment';
-import { Reserve } from '../../../services/services/types';
+import { Service } from '../../../services/services/types';
 
 interface DataTableProps {
-  reserves: Reserve[];
-  onDelete: (reserve: Reserve) => void;
+  services: Service[];
+  onDelete: (reserve: Service) => void;
 }
 
-const ReservesTable: React.FC<DataTableProps> = ({ reserves, onDelete }) => {
+const ServicesTable: React.FC<DataTableProps> = ({ services, onDelete }) => {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell></TableCell>
-            <TableCell>Servicio</TableCell>
             <TableCell>Nombre</TableCell>
-            <TableCell>Apellido</TableCell>
-            <TableCell>Desde</TableCell>
-            <TableCell>Hasta</TableCell>
+            <TableCell>Description</TableCell>
             <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {reserves.map((reserve, index) => (
+          {services.map((service, index) => (
             <TableRow
               key={index}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -44,18 +40,11 @@ const ReservesTable: React.FC<DataTableProps> = ({ reserves, onDelete }) => {
                 {index + 1}
               </TableCell>
               <TableCell>
-                {reserve.service.emoji} {capitalize(reserve.service.name)}
+                {service.emoji} {capitalize(service.name || '')}
               </TableCell>
-              <TableCell>{reserve.firstName}</TableCell>
-              <TableCell>{reserve.lastName}</TableCell>
+              <TableCell>{service.description}</TableCell>
               <TableCell>
-                {moment(reserve.schedule.from).format('DD/MM/YYYY HH:mm')}
-              </TableCell>
-              <TableCell>
-                {moment(reserve.schedule.to).format('DD/MM/YYYY HH:mm')}
-              </TableCell>
-              <TableCell>
-                <IconButton onClick={() => onDelete(reserve)}>
+                <IconButton onClick={() => onDelete(service)}>
                   <DeleteIcon />
                 </IconButton>
               </TableCell>
@@ -67,4 +56,4 @@ const ReservesTable: React.FC<DataTableProps> = ({ reserves, onDelete }) => {
   );
 };
 
-export default ReservesTable;
+export default ServicesTable;

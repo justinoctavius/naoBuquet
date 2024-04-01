@@ -1,6 +1,7 @@
 import { HttpClient } from '../../utils/httpClient';
 import {
   CancelScheduleDto,
+  CreateServiceDto,
   Paginate,
   Reserve,
   ReserveScheduleDto,
@@ -20,6 +21,24 @@ export class ServicesService {
       `/services?skip=${skip}&take=${take}`
     );
     return data;
+  }
+
+  async deleteService(id: string) {
+    await this.httpClient.client.delete(`/services/${id}`);
+  }
+
+  async createService({
+    name,
+    description,
+    schedules,
+    emoji,
+  }: CreateServiceDto) {
+    await this.httpClient.client.post('/services', {
+      name,
+      description,
+      schedules,
+      emoji,
+    });
   }
 
   async getServiceDetails(id: string): Promise<Service> {

@@ -13,6 +13,13 @@ export interface Schedule {
   isReserved: boolean;
 }
 
+export interface CreateServiceDto {
+  name: string;
+  description: string;
+  schedules: Pick<Schedule, 'from' | 'to'>[];
+  emoji: string;
+}
+
 export interface Paginate {
   skip: number;
   take: number;

@@ -1,22 +1,21 @@
 import { Box, Button, Typography } from '@mui/material';
 import DashboardScreenTemplate from '../../components/templates/DashboardScreenTemplate';
-import ReservesTable from '../../components/organisms/ReservesTable';
-import { useGetUserReserves } from '../../hooks/queries/services/useGetUserReserves';
-import { useCancelSchedule } from '../../hooks/mutations/services/useCancelSchedule';
-import { Reserve } from '../../services/services/types';
+import { Service } from '../../services/services/types';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '../../constants/routes';
 import { colors } from '../../constants/theme/colors';
+import { useGetServices } from '../../hooks/queries/services/useGetServices';
+import ServicesTable from '../../components/organisms/ServicesTable';
+import { useDeleteService } from '../../hooks/mutations/services/useDeleteService';
 
-export const MyReserves: React.FC = () => {
-  const { data } = useGetUserReserves({ skip: 0, take: 50 });
+export const MyServices: React.FC = () => {
+  const { data } = useGetServices({ skip: 0, take: 50 });
 
-  const { cancelSchedule } = useCancelSchedule();
+  const { deleteService } = useDeleteService();
 
   const navigate = useNavigate();
 
-  const handleDelete = async ({ id, service }: Reserve) => {
-    cancelSchedule.mutateAsync({ serviceId: service.id, reserveId: id });
+  const handleDelete = async ({ id }: Service) => {
+    deleteService.mutateAsync(id);
   };
 
   return (
@@ -29,18 +28,21 @@ export const MyReserves: React.FC = () => {
           mb={2}
         >
           <Typography variant="h5" gutterBottom>
-            Mis reservas
+            Mis servicios
           </Typography>
-          <Button variant="contained" onClick={() => navigate(routes.services)}>
-            Reservar
+          <Button
+            variant="contained"
+            onClick={() => navigate('/dashboard/agregar-servicio')}
+          >
+            Agregar servicio
           </Button>
         </Box>
         {data?.length ? (
-          <ReservesTable reserves={data || []} onDelete={handleDelete} />
+          <ServicesTable services={data || []} onDelete={handleDelete} />
         ) : (
           <Box display="flex" justifyContent={'center'} mt={2}>
             <Typography variant="subtitle2" gutterBottom color={colors.gray900}>
-              No tienes reservas
+              No tienes servicios
             </Typography>
           </Box>
         )}
