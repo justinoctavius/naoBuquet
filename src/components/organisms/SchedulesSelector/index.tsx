@@ -107,7 +107,7 @@ const ScheduleComponent: React.FC<Props> = ({ onSelectSchedule }: Props) => {
           <Typography variant="caption">Horarios</Typography>
         </Box>
       )}
-      <Box display="flex" flexWrap={'wrap'}>
+      <Box display="grid" gridTemplateColumns={'1fr 1fr 1fr'} gap={1}>
         {schedules.map((schedule, index) => (
           <Box
             key={index}
