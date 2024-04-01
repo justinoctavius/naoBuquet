@@ -57,6 +57,8 @@ const SideNavigator: React.FC = () => {
 
   const { logout } = useAuth();
 
+  console.log(location.pathname);
+
   return (
     <Box>
       <List>
@@ -68,9 +70,8 @@ const SideNavigator: React.FC = () => {
           >
             <ListItem
               sx={{
-                bgcolor: location.pathname.includes(path)
-                  ? colors.gray
-                  : 'transparent',
+                bgcolor:
+                  location.pathname === path ? colors.gray : 'transparent',
               }}
             >
               <ListItemIcon>{cloneElement(icon)}</ListItemIcon>
