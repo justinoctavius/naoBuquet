@@ -31,24 +31,19 @@ const options = [
     icon: <MailIcon />,
   },
   {
-    label: 'Recordatorios',
-    path: `${routes.dashboard}/recordatorios`,
-    icon: <NotificationActiveIcon />,
-  },
-  {
-    label: 'Configuración',
-    path: `${routes.dashboard}/configuracion`,
-    icon: <MiscellaneousServicesIcon />,
-  },
-  {
     label: 'Notificaciones',
     path: `${routes.dashboard}/notificaciones`,
-    icon: <NotificationIcon />,
+    icon: <NotificationActiveIcon />,
   },
   {
     label: 'Metricas y analitica',
     path: `${routes.dashboard}/metricas-y-analitica`,
     icon: <EqualizerIcon />,
+  },
+  {
+    label: 'Configuración',
+    path: `${routes.dashboard}/configuracion`,
+    icon: <MiscellaneousServicesIcon />,
   },
 ];
 
