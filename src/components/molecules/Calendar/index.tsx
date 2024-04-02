@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider, StaticDatePicker } from '@mui/x-date-pickers';
@@ -25,7 +26,7 @@ export const Calendar: React.FC<CalendarProps> = ({
       const dayEnd = day.endOf('day').toDate();
       return new Date(from) <= dayEnd && new Date(to) >= dayStart;
     });
-    return dayReservations.every((reservation) => reservation.reserved);
+    return dayReservations.every((reservation) => reservation.isReserved);
   };
 
   // Filtro para mostrar solo las horas disponibles del día seleccionado
@@ -69,7 +70,7 @@ export const Calendar: React.FC<CalendarProps> = ({
           onChange={(newValue) => {
             setSelectedDate(newValue);
           }}
-          renderInput={(params) => params.inputProps}
+          // renderInput={(params: any) => params.inputProps}
           shouldDisableDate={isDayFullyBooked}
         />
         {selectedDate &&
