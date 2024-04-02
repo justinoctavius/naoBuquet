@@ -8,7 +8,7 @@ export class HttpClient {
 
   constructor() {
     this.client = axios.create({
-      baseURL: 'http://localhost:3000',
+      baseURL: 'https://citas-972986e71115.herokuapp.com',
       headers: {
         'Content-Type': 'application/json',
       },
