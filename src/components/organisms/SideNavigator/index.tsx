@@ -14,7 +14,6 @@ import { routes } from '../../../constants/routes';
 import { useAuth } from '../../../context/auth';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
-import NotificationIcon from '@mui/icons-material/Notifications';
 import NotificationActiveIcon from '@mui/icons-material/NotificationsActive';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import EqualizerIcon from '@mui/icons-material/Equalizer';

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useNavigate } from 'react-router-dom';
 import { FormScreenTemplate } from '../../components/templates/FormScreenTemplate';
 import { Box, Button, TextField, Typography } from '@mui/material';
@@ -37,7 +38,7 @@ export const AddServices = () => {
   );
 
   const validateFields = (fieldName: string) => {
-    const field = fields[fieldName];
+    const field = fields[fieldName as keyof typeof fields];
 
     if (!field) {
       setHelperText({ ...helperText, [fieldName]: 'Campo requerido' });

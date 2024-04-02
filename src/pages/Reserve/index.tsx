@@ -75,7 +75,7 @@ export const ReservePage = () => {
   };
 
   const validateFields = (fieldName: string) => {
-    const field = fields[fieldName];
+    const field = fields[fieldName as keyof typeof fields];
 
     if (!field) {
       setHelperText({ ...helperText, [fieldName]: 'Campo requerido' });

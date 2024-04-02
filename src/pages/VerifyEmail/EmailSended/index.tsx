@@ -53,13 +53,13 @@ export const EmailSended = ({
           <Box
             width={'fit-content'}
             color={colors.gray900}
-            sx={{ bgcolor: colors.gray }}
             display={'flex'}
             alignItems={'center'}
             justifyContent={'center'}
             onClick={onEditPress}
             padding={1}
             sx={{
+              bgcolor: colors.gray,
               cursor: 'pointer',
               backgroundColor: colors.gray,
               '&:hover': {

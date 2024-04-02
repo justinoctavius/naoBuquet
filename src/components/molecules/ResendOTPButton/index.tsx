@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
 
 export function ResendOTPButton({ onClick }: { onClick: () => void }) {
