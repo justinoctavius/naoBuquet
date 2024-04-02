@@ -7,24 +7,43 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { NavLink, useLocation } from 'react-router-dom';
 import { colors } from '../../../constants/theme/colors';
 import { routes } from '../../../constants/routes';
 import { useAuth } from '../../../context/auth';
 import LogoutIcon from '@mui/icons-material/Logout';
+import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
+import NotificationIcon from '@mui/icons-material/Notifications';
+import NotificationActiveIcon from '@mui/icons-material/NotificationsActive';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import EqualizerIcon from '@mui/icons-material/Equalizer';
 
 const options = [
   {
     label: 'Mis reservas',
     path: routes.myReserves,
-    icon: <InboxIcon />,
+    icon: <CalendarTodayIcon />,
   },
   {
     label: 'Mis servicios',
-    path: '/mis-servicios',
+    path: `${routes.dashboard}/mis-servicios`,
     icon: <MailIcon />,
+  },
+  {
+    label: 'Notificaciones',
+    path: `${routes.dashboard}/notificaciones`,
+    icon: <NotificationActiveIcon />,
+  },
+  {
+    label: 'Metricas y analitica',
+    path: `${routes.dashboard}/metricas-y-analitica`,
+    icon: <EqualizerIcon />,
+  },
+  {
+    label: 'Configuración',
+    path: `${routes.dashboard}/configuracion`,
+    icon: <MiscellaneousServicesIcon />,
   },
 ];
 
@@ -32,6 +51,8 @@ const SideNavigator: React.FC = () => {
   const location = useLocation();
 
   const { logout } = useAuth();
+
+  console.log(location.pathname);
 
   return (
     <Box>
@@ -44,9 +65,8 @@ const SideNavigator: React.FC = () => {
           >
             <ListItem
               sx={{
-                bgcolor: location.pathname.includes(path)
-                  ? colors.gray
-                  : 'transparent',
+                bgcolor:
+                  location.pathname === path ? colors.gray : 'transparent',
               }}
             >
               <ListItemIcon>{cloneElement(icon)}</ListItemIcon>
